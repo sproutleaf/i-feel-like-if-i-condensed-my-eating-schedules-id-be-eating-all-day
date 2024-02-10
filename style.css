@@ -26,8 +26,10 @@ main {
     width: 100%;
     display: flex;
     justify-content: left;
-    align-items: center;
-    font-size: 10vh;
+    align-items: flex-start;
+    font-size: 5vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
 }
 
 .time {
