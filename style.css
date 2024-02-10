@@ -1,0 +1,35 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow: hidden;
+    /* disable the scrollbar */
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#entries {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.entry {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 10vh;
+}
+
+.time {
+    padding-right: 3vw;
+}
