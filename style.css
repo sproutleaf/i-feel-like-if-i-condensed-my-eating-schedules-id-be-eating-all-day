@@ -1,10 +1,21 @@
+@font-face {
+    font-family: 'Lunchtype';
+    src: url('fonts/lunchtype/Lunchtype25-Medium-Condensed.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'DroidSans';
+    src: url('fonts/DroidSansFallback.ttf') format('truetype');
+}
+
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    overflow: hidden;
+    /* overflow: hidden; */
     /* disable the scrollbar */
+    font-family: 'Lunchtype', 'DroidSans';
 }
 
 main {
@@ -15,11 +26,21 @@ main {
 
 #entries {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    top: 25%;
+    left: 15%;
+    width: 70%;
+    height: 50%;
+    /* background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.1) 100%); */
+    /* mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 60%, transparent 100%); */
+
+    overflow: scroll;
+    -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+}
+
+#entries::-webkit-scrollbar {
+    display: none;
 }
 
 .entry {
@@ -27,11 +48,98 @@ main {
     display: flex;
     justify-content: left;
     align-items: flex-start;
-    font-size: 5vh;
+    font-size: 3vh;
     padding-top: 1vh;
-    padding-bottom: 1vh;
+    /* padding-bottom: 1vh; */
+    /* to prevent new text from flickering on hover */
+    overflow: hidden;
 }
 
 .time {
     padding-right: 3vw;
+}
+
+#t10301135 span:hover::after {
+    content: " I always ask this question and always end up slurping on Ban Mian anyway"
+}
+
+#t12451330 span:hover::after {
+    content: " This is obviously not true, but if you ever visit Budapest, you HAVE TO try the Hummus Bar";
+}
+
+* .words::before {
+    position: absolute;
+    margin: 0;
+}
+
+#t06400700 .words::before {
+    content: "今天吃什么？粥还是汤圆还是鸡头米？";
+}
+
+#t06400700 .words:hover::before {
+    content: "What are you craving for today? Porridge or Tangyuan or Jitoumi?";
+}
+
+#t07000725 .words::before {
+    content: "Auntie我要一个toast set with Kopi O!";
+}
+
+#t07000725 .words:hover::before {
+    content: "Auntie, a toast set with black coffee please!";
+}
+
+#t09000920 .words::before {
+    content: "Jamón con queso y café descafeinado porfa—";
+}
+
+#t09000920 .words:hover::before {
+    content: "Ham and cheese croissant with decaffeinated cappucino please—";
+}
+
+#t11351245 .words::before {
+    content: "诶快点出去啦等下麻辣烫又要排队了！";
+}
+
+#t11351245 .words:hover::before {
+    content: "Hurry up! You don't want to waste forever in the line for Mala!";
+}
+
+#t14001530 .words::before {
+    content: "¿Buenas tardes, qué hay para menú del día?";
+}
+
+#t14001530 .words:hover::before {
+    content: "Good afternoon, what's on the special menu today?";
+}
+
+#t16001645 .words::before {
+    content: "我还有三块钱硬币，你要吃鸡柳还是炸年糕？";
+}
+
+#t16001645 .words:hover::before {
+    content: 'I have 3 yuan left, do you want fried chicken or fried rice cake?';
+}
+
+#t16451730 .words::before {
+    content: "苗苗啊别玩电脑了，过来喝点豆腐羹吧。";
+}
+
+#t16451730 .words:hover::before {
+    content: 'Miao, pause on your game? I made your favorite Tofu Soup.';
+}
+
+#t21002200 .words::before {
+    content: "¡Milagros, la cena ya está!";
+}
+
+#t21002200 .words:hover::before {
+    content: "Miaoye, dinner is ready!";
+}
+
+#t24302500 .words::before {
+    content: "churros con chocolate pa'la fiesta <3";
+}
+
+#t24302500 .words:hover::before {
+    content: "Chocolate churros the supreme party food <3";
 }
