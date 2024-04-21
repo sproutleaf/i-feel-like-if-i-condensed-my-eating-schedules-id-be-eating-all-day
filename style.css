@@ -16,7 +16,7 @@
 body {
     font-family: 'Lunchtype', 'DroidSans';
     overflow: hidden;
-    font-size: 2vh;
+    font-size: 1.8vh;
     margin: 0;
 }
 
@@ -36,16 +36,6 @@ body {
     position: absolute;
 }
 
-#view {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: 40px;
-    left: calc(50% - 10px);
-    border: 1px solid blue;
-
-}
-
 #main {
     position: relative;
     top: 50%;
@@ -55,16 +45,16 @@ body {
 
 #circle {
     position: absolute;
-    width: 2000px;
-    height: 2000px;
+    width: 120vw;
+    height: 120vw;
     border-radius: 50%;
     border: 1px dashed green;
-    margin-top: -800px;
+    margin-top: -40vw;
 }
 
 #wrapper {
     position: absolute;
-    transform: translate(0, 1000px);
+    transform: translate(0, 100px);
 }
 
 .time {

@@ -3,72 +3,69 @@ const scroller = new virtualScroll({
     touchMultiplier: 0.05
 });
 
-const getDeviceTime = () => {
-    const currentTimestamp = Date.now();
-    const currentTime = new Date(currentTimestamp);
-    const hour = currentTime.getHours().toString().padStart(2, '0');
-    const minute = currentTime.getMinutes().toString().padStart(2, '0');
-    const combinedTimeStr = hour + minute;
-    const time = parseInt(combinedTimeStr, 10);
-
-    return time;
-};
-
-const items = document.querySelectorAll('.entry');
-const radius = document.querySelector('#circle').offsetHeight / 2;
-const radians = 2 * Math.PI / items.length;
-const wrapper = document.querySelector('#wrapper');
-
 window.addEventListener('beforeunload', function () {
     scroller.destroy();
 });
 
-$(document).ready(() => {
-    let deviceTime = getDeviceTime();
-    const ids = [];
-    const entries = $('#entries .entry');
+const getDeviceTime = () => {
+    const currentTime = new Date(Date.now());
+    const time = parseInt(currentTime.getHours().toString().padStart(2, '0') + currentTime.getMinutes().toString().padStart(2, '0'), 10);
+    return time;
+};
 
-    for (const entry of entries) {
-        let id = entry.id.substring(1);
-        ids.push(id);
+const entries = $('#entries .entry');
+let ids = [];
+for (const entry of entries) {
+    let id = entry.id.substring(1);
+    ids.push(id);
+};
+
+const findStartIndex = (time) => {
+    if (time > 2330 || time < 30) {
+        return 0;
     }
 
-    function findStartIndex(time) {
-        let start = 0;
-        if (time > 2330 || time < 30) {
-            return start;
-        }
-
-        for (let i = 0; i < ids.length - 1; i++) {
-            if (time > ids[i] && time < ids[i + 1]) start = i;
-        }
-        return start;
+    for (let i = 0; i < ids.length - 1; i++) {
+        if (time > ids[i] && time < ids[i + 1]) return i;
     }
 
-    let circle = 2 * Math.PI;
-    let start = findStartIndex(deviceTime);
-    console.log("start index is: ", start);
-    let percent = start / ids.length;
-    let o = -circle * percent;
+    return 0;
+}
 
-    while (o < 0) {
-        o += 2 * Math.PI;
-    }
-    wrapper.style.transform = `translate(${radius * Math.sin(o)}px, ${radius * Math.cos(o)}px)`;
+const items = document.querySelectorAll('.entry');
+const radians = 2 * Math.PI / items.length;
+let radius = document.querySelector('#circle').offsetHeight / 2;
+const wrapper = document.querySelector('#wrapper');
+
+const positionEntries = () => {
+    radius = document.querySelector('#circle').offsetHeight / 2;
 
     items.forEach((el, i) => {
         const alpha = Math.PI - (i * radians);
 
-        if (i === 0) {
-            el.style.transform = `translate(0, -${radius}px)`;
-        } else {
-            el.style.transform = `translate(${radius * Math.sin(alpha)}px, ${radius * Math.cos(alpha)}px)`;
-        }
+        el.style.transform = i === 0
+            ? `translate(0, -${radius}px)`
+            : `translate(${radius * Math.sin(alpha)}px, ${radius * Math.cos(alpha)}px)`;
     });
+}
+
+$(document).ready(() => {
+    let deviceTime = getDeviceTime();
+
+    let circle = 2 * Math.PI;
+    let startIndex = findStartIndex(deviceTime);
+    let percent = startIndex / ids.length;
+    let offset = (circle * (1 - percent)) % circle;
+
+    wrapper.style.transform = `translate(${radius * Math.sin(offset)}px, ${radius * Math.cos(offset)}px)`;
+
+    positionEntries();
+    window.addEventListener('resize', positionEntries);
 
     scroller.on(e => {
         if (e.originalEvent.type === 'wheel') {
-            wrapper.style.transform = `translate(${radius * Math.sin((o + e.y / 360) % circle)}px, ${radius * Math.cos((o + e.y / 360) % circle)}px)`
+            let degree = (offset + e.y / 360) % circle;
+            wrapper.style.transform = `translate(${radius * Math.sin(degree)}px, ${radius * Math.cos(degree)}px)`
         }
     });
 });
