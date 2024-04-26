@@ -68,4 +68,14 @@ $(document).ready(() => {
             wrapper.style.transform = `translate(${radius * Math.sin(degree)}px, ${radius * Math.cos(degree)}px)`
         }
     });
+
+    var grinding = $('#coffee')[0];
+    $('#t0800').on('mouseenter', function () {
+        grinding.volume = 0.1;
+        grinding.play();
+    });
+    $('#t0800').on('mouseleave', function () {
+        grinding.pause();
+        grinding.currentTime = 0;
+    });
 });

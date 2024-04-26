@@ -1,31 +1,49 @@
-@font-face {
-    font-family: 'Lunchtype';
-    src: url('fonts/lunchtype/Lunchtype25-Medium-Condensed.ttf') format('truetype');
+:root {
+    --entry-w: 15vw;
 }
 
 @font-face {
-    font-family: 'DroidSans';
-    src: url('fonts/DroidSansFallback.ttf') format('truetype');
+    font-family: 'Lunchtype';
+    src: url('assets/fonts/lunchtype/Lunchtype25-Regular_Condensed.ttf') format('truetype');
 }
 
 * {
     box-sizing: border-box;
 }
 
-
 body {
-    font-family: 'Lunchtype', 'DroidSans';
+    font-family: 'Lunchtype', serif;
     overflow: hidden;
-    font-size: 1.8vh;
+    font-size: 2vh;
     margin: 0;
 }
+
+@media screen and (max-width: 900px) {
+    body {
+        font-size: 1.5vh;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    body {
+        font-size: 1.5vw;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    body {
+        font-size: 1vh;
+    }
+}
+
+
 
 #entries {
     position: absolute;
     top: calc(50% - 10px);
     left: 50%;
     transform: translate(-50%, -50%);
-    min-width: 12vw;
+    min-width: var(--entry-w);
 }
 
 #entries::-webkit-scrollbar {
@@ -33,23 +51,24 @@ body {
 }
 
 .entry {
+    cursor: crosshair;
     position: absolute;
 }
 
 #main {
     position: relative;
     top: 50%;
-    left: 50%;
+    left: 40%;
     transform: translate(-50%, -50%);
 }
 
 #circle {
     position: absolute;
-    width: 120vw;
-    height: 120vw;
+    width: calc(10 * var(--entry-w));
+    height: calc(10 * var(--entry-w));
     border-radius: 50%;
     border: 1px dashed green;
-    margin-top: -40vw;
+    margin-top: calc(-4 * var(--entry-w));
 }
 
 #wrapper {
@@ -57,19 +76,24 @@ body {
     transform: translate(0, 100px);
 }
 
+.food-right,
+.food-left {
+    display: none;
+    position: absolute;
+    top: 0;
+    max-height: 120%;
+    margin-left: var(--entry-w);
+}
+
+.food-left {
+    right: 110%;
+}
+
 .time {
     padding-right: 3vw;
 }
 
-#t1030 span:hover::after {
-    content: " I always ask this question and always end up slurping on Ban Mian anyway"
-}
-
-#t1245 span:hover::after {
-    content: " This is obviously not true, but if you ever visit Budapest, you HAVE TO try the Hummus Bar";
-}
-
-* .words::before {
+.words::before {
     position: absolute;
     margin: 0;
     min-width: 12vw;
@@ -79,28 +103,48 @@ body {
     min-width: 12vw;
 }
 
+* .words {
+    min-height: 50px;
+    display: block;
+}
+
+#t0030 .words:hover+.food-right,
+#t0330 .words:hover+.food-right,
+#t0700 .words:hover+.food-left,
+#t0830 .words:hover+.food-left,
+#t1530 .words:hover+.food-left,
+#t1600 .words:hover+.food-left,
+#t1730 .words:hover+.food-right {
+    display: block;
+}
+
+#t1600 .words:hover+.food-left,
+#t1730 .words:hover+.food-right {
+    max-height: 80%;
+}
+
 #t0640 .words::before {
     content: "今天吃什么？粥还是汤圆还是鸡头米？";
 }
 
 #t0640 .words:hover::before {
-    content: "What are you craving for today? Porridge or Tangyuan or Jitoumi?";
+    content: "what are you craving for today? porridge or tangyuan or water lily with chrysanthemum?";
 }
 
 #t0700 .words::before {
-    content: "Auntie我要一个toast set with Kopi O!";
+    content: "auntie我要一个toast set with Kopi O!";
 }
 
 #t0700 .words:hover::before {
-    content: "Auntie, a toast set with black coffee please!";
+    content: "auntie, a toast set with black coffee please!";
 }
 
 #t0900 .words::before {
-    content: "Jamón con queso y café descafeinado porfa—";
+    content: "jamón con queso y café descafeinado porfa—";
 }
 
 #t0900 .words:hover::before {
-    content: "Ham and cheese croissant with decaffeinated cappucino please—";
+    content: "ham and cheese croissant with decaffeinated cappucino please—";
 }
 
 #t1135 .words::before {
@@ -124,7 +168,7 @@ body {
 }
 
 #t1600 .words:hover::before {
-    content: 'I have 3 yuan left, do you want fried chicken or fried rice cake?';
+    content: 'I have 3 coins left, do you want fried chicken or fried rice cake?';
 }
 
 #t1645 .words::before {
@@ -132,15 +176,16 @@ body {
 }
 
 #t1645 .words:hover::before {
-    content: 'Miao, pause on your game? I made your favorite Tofu Soup.';
+    content: 'miao, pause your game? I made your favorite Tofu Soup.';
 }
 
+
 #t2100 .words::before {
-    content: "¡Milagros, la cena ya está!";
+    content: "¡milagros, la cena ya está!";
 }
 
 #t2100 .words:hover::before {
-    content: "Miaoye, dinner is ready!";
+    content: "miaoye, dinner is ready!";
 }
 
 #t0030 .words::before {
@@ -148,5 +193,13 @@ body {
 }
 
 #t0030 .words:hover::before {
-    content: "Chocolate churros the supreme party food <3";
+    content: "chocolate churros the supreme party food <3";
+}
+
+#t1030 span:hover::after {
+    content: " i always ask this question and always end up slurping on Ban Mian anyway"
+}
+
+#t1245 span:hover::after {
+    content: " this is obviously not true, but if you ever visit budapest, you HAVE TO try the hummus bar";
 }
